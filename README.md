@@ -1,5 +1,5 @@
 # Avgirl_Detector
-This tools is used to detect the most likely japan av girl in your pictures.
+This tool is used to detect the most likely japan av girl in your pictures.
 (Now only support python3)
 
 ## Step 1, Download the neccesary file form git can goolge drive:
