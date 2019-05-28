@@ -2,7 +2,7 @@
 This tool is used to detect the most likely japan av girl in your pictures.
 (Now only support python3)
 
-## Step 1, Download the neccesary file form git cad goolge drive:
+## Step 1, Download the neccesary file form git and goolge drive:
 
 $ python3 setup.py
 
