@@ -248,6 +248,7 @@ def inference(model, tfRecord, img_paths, top, av):
         dist_dict[str(i)] = (2 * label_dict[str(i)] - dist_dict[str(i)]) * 50 / label_dict[str(i)]
     from collections import Counter 
     k = Counter(dist_dict) 
+    top = av.list_name if top > len(av.list_name) else top
     high = k.most_common(top) 
     for i, ele in enumerate(high):
         print("第 {} 相似為: {}, 相似度: {:.1f}%".format(i + 1, av.rdict_name[ele[0]], ele[1]))
