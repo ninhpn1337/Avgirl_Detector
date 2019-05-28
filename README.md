@@ -1,16 +1,16 @@
 # Avgirl_Detector
-This tools is used to detect what most likely japan av girl is in your pictures.
+This tools is used to detect the most likely japan av girl in your pictures.
 (Now only support python3)
 
 ## Step 1, Download the neccesary file form git can goolge drive:
 
 $ python3 setup.py
 
-## Step 2, Make sure that you have installed neccesary module at requirements.txt
+## Step 2, Make sure that you've installed neccesary module at requirements.txt
 
 $ pip3 install -r requirements.txt 
 
-## Step 3 Do inferencing:
+## Step 3 Do inference:
 
 $ python3 avgirls_detector.py -inf 1 -i "/your/file/full/path/name"
 
@@ -21,11 +21,11 @@ $ python3 avgirls_detector.py -inf 1 -i "/your/file/full/path/name1" "/your/file
 ### for example:
 $ python3 avgirls_detector.py -inf 1 -i ${HOME}/downloads/img1.png ${HOME}/downloads/img2.png
 
-## Checking another tool methods:
+## Check another tool methods:
 
 $ python3 avgirls_detector.py -h
 
-## Now support that you can create your pictures into my database, The easiest way is:
+## You can create your pictures into my database,ant the easiest way is:
 
 $ mkdir data/ori 
 
