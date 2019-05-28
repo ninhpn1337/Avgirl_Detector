@@ -121,8 +121,10 @@ def crop_img(ori_dir, crop_dir, img_size, img_type):
 def creat_npy(crop_dir, npy_dir, model):
     ''' create npy file for tfrecord '''
     from facenet.src.facenet import load_model, prewhiten
+    config = tf.ConfigProto()
+    config.gpu_options.per_process_gpu_memory_fraction = 0.8
     with tf.Graph().as_default():
-        with tf.Session() as sess:
+        with tf.Session(config = config) as sess:
             print("Now loading the model...")
             load_model(model)
             images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
@@ -178,9 +180,11 @@ def inference(model, tfRecord, img_paths, top, av):
     # step 2 store img as the np format
     from facenet.src.facenet import load_model, prewhiten
     emb_list = []
+    config = tf.ConfigProto()
+    config.gpu_options.per_process_gpu_memory_fraction = 0.8
     for i in img_list:
         with tf.Graph().as_default():
-            with tf.Session() as sess:
+            with tf.Session(config = config) as sess:
                 load_model(model)
                 images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
                 embeddings = tf.get_default_graph().get_tensor_by_name("embeddings:0")
@@ -198,15 +202,17 @@ def inference(model, tfRecord, img_paths, top, av):
     # step 3 calculate the confidence level
     dist_dict  = {}
     label_dict = {}
-    with tf.Session()  as sess:
+    config = tf.ConfigProto()
+    config.gpu_options.per_process_gpu_memory_fraction = 0.8
+    with tf.Session(config = config)  as sess:
         sess.run(init_op)
         coord = tf.train.Coordinator()
         threads = tf.train.start_queue_runners(coord=coord)
-        for emb in emb_list:
-            sess.run(iterator.initializer)
-            while True:
-                try:
-                    next_example, next_label = sess.run(next_element)
+        sess.run(iterator.initializer)
+        while True:
+            try:
+                next_example, next_label = sess.run(next_element)
+                for emb in emb_list:
                     for i, ele in enumerate(next_example):
                         if str(next_label[i]) not in dist_dict:
                             dist_dict[str(next_label[i])]  = 0
@@ -215,11 +221,11 @@ def inference(model, tfRecord, img_paths, top, av):
                         dist = np.sqrt(np.sum(np.square(np.subtract(ele, emb))))
                         dist_dict[str(next_label[i])]  = dist + dist_dict[str(next_label[i])] 
                         label_dict[str(next_label[i])] =    1 + label_dict[str(next_label[i])]
-                except tf.errors.OutOfRangeError:
-                    break
+            except tf.errors.OutOfRangeError:
+                break
         coord.request_stop()
         coord.join(threads)
-
+        
     for i in range(len(av.list_name)):
         dist_dict[str(i)] = (2 * label_dict[str(i)] - dist_dict[str(i)]) * 50 / label_dict[str(i)]
     from collections import Counter 

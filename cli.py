@@ -53,15 +53,21 @@ def read_flags():
         '-top', '--top', default = 5, type=int, help="number of av girls that img are most like")
 
     group = parser.add_mutually_exclusive_group()
+    
     group.add_argument(
         "-oc", "--only_crop", default = 0, type=int, help="only crop the image to crop_dir")
+    
     group.add_argument(
         "-on", "--only_npy", default = 0,  type=int, help="only save crop image form crop_dir as npy file in npy_dir")
+    
     group.add_argument(
         "-ost", "--only_svae_tfrecord", default = 0,  type=int, help="only save npy file as tfrecord")
+    
     group.add_argument(
         "-pp", "--preprocess", default = 0,  type=int, help="preprocess: doing crop, trans2npy, save npy as tfrecord")
+    
     group.add_argument(
         "-inf", "--inference", default = 0,  type=int, help="do inferencing the client imgs")
+    
     flags = parser.parse_args()
     return flags
