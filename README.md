@@ -2,7 +2,7 @@
 This tool is used to detect the most likely japan av girl in your pictures.
 (Now only support python3)
 
-## Step 1, Download the neccesary file form git can goolge drive:
+## Step 1, Download the neccesary file form git cad goolge drive:
 
 $ python3 setup.py
 
@@ -14,7 +14,7 @@ $ pip3 install -r requirements.txt
 
 $ python3 avgirls_detector.py -inf 1 -i "/your/file/full/path/name"
 
-### Do  multiple inference with same people in the pictures:
+### Do multiple inferences with same person in the pictures:
 
 $ python3 avgirls_detector.py -inf 1 -i "/your/file/full/path/name1" "/your/file/full/path/name2" 
 
