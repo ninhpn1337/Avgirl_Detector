@@ -19,7 +19,7 @@ $ python3 avgirls_detector.py -inf 1 -i "/your/file/full/path/name"
 $ python3 avgirls_detector.py -inf 1 -i "/your/file/full/path/name1" "/your/file/full/path/name2" 
 
 ### for example:
-$ python3 avgirls_detector.py -inf 1 -i ${HOME}/downloads/img1.png ${HOME}/downloads/img2.png ${HOME}/downloads/img3.png 
+$ python3 avgirls_detector.py -inf 1 -i ${HOME}/downloads/img1.png ${HOME}/downloads/img2.png
 
 ## Checking another tool methods:
 
