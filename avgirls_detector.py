@@ -84,7 +84,7 @@ def read_and_decodeEmb(filename, batch_size, shape_):
         features = tf.parse_single_example(record, features)
         img = tf.decode_raw(features['emb_str'], tf.float32)
         img = tf.reshape(img, [shape_])
-        #img = tf.cast(img, tf.float32)# * (1. / 255) - 0.5 #在流中抛出img张量
+        #img = tf.cast(img, tf.float32)# * (1. / 255) - 0.5
         label = tf.cast(features['label'], tf.int32)
         return img, label
     dataset = tf.data.TFRecordDataset(filename)
@@ -93,29 +93,6 @@ def read_and_decodeEmb(filename, batch_size, shape_):
     dataset = dataset.batch(batch_size)
     #dataset = dataset.repeat(num_epochs)
     return dataset
-
-def dataset_input(filename, batch_size, ori_size, tar_size):
-    def parser(record):
-        features={
-            'label': tf.FixedLenFeature([], tf.int64),
-            'img_raw' : tf.FixedLenFeature([], tf.string),
-        }
-        features = tf.parse_single_example(record, features)
-        img = tf.decode_raw(features['img_raw'], tf.uint8)
-        img = tf.reshape(img, [ori_size, ori_size, 3])
-        img = tf.cast(img, tf.float32) * (1. / 255) - 0.5 #在流中抛出img张量
-        label = tf.cast(features['label'], tf.int32)
-        return img, label
-    dataset = tf.data.TFRecordDataset(filename)
-    dataset = dataset.map(parser)
-    dataset = dataset.shuffle(buffer_size=10000)
-    dataset = dataset.batch(batch_size)
-    #dataset = dataset.repeat(num_epochs)
-    return dataset
-
-def one_hot(labels,Label_class):
-    one_hot_label = np.array([[int(i == int(labels[j])) for i in range(Label_class)] for j in range(len(labels))])   
-    return one_hot_label
 
 def store_img_as_npy(output_dir, filename, vector_img):
     full_name = os.path.join(output_dir, filename + '.npy')
@@ -190,7 +167,6 @@ def create_tfrecord(npy_dir, model, save_json, tfRecord, av):
 
 
 def inference(model, tfRecord, img_paths, top, av):
-    #image_name = os.path.join(image_dir, 'a01.jpg')
     # step1 crop the face in the list
     img_list = []
     for image_name in img_paths:
