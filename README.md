@@ -14,7 +14,7 @@ $ pip3 install -r requirements.txt
 
 $ python3 avgirls_detector.py -inf 1 -i "/your/file/full/path/name"
 
-### Do  multiple inferencing with same people in the pictures:
+### Do  multiple inference with same people in the pictures:
 
 $ python3 avgirls_detector.py -inf 1 -i "/your/file/full/path/name1" "/your/file/full/path/name2" 
 
@@ -25,7 +25,7 @@ $ python3 avgirls_detector.py -inf 1 -i ${HOME}/downloads/img1.png ${HOME}/downl
 
 $ python3 avgirls_detector.py -h
 
-## You can create your pictures into my database,ant the easiest way is:
+## You can create your pictures into my database,and the easiest way is:
 
 $ mkdir data/ori 
 
